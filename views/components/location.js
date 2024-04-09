@@ -6,13 +6,14 @@ export default function renderLocation(location, isAvailableLocation = true) {
       hx-vals='{"locationId":"${location.id}"}'
       hx-target="#interesting-locations"
       hx-swap="beforeend show:main:top"
+      data-action="add"
     `
   }else{
     attributes = `
       hx-delete="/places/${location.id}" 
       hx-target="closest li"
       hx-swap="outerHTML"
-      hx-confirm=""Are you sure?"
+      data-action="remove"
     `
   }
   return `
