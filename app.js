@@ -23,7 +23,16 @@ app.post('/places', (req, res) => {
   const location = AVAILABLE_LOCATIONS.find((loc) => loc.id === locationId);
   INTERESTING_LOCATIONS.push(location);
 
-  res.send(renderLocation(location, false));
+  const availableLocations = AVAILABLE_LOCATIONS.filter(loc => !INTERESTING_LOCATIONS.includes(loc));
+  res.send(
+  `
+    ${renderLocation(location , false)} 
+
+    <ul id="available-locations" class="locations" hx-swap-oob="true">
+      ${availableLocations.map((location) => renderLocation(location , true)).join('')}
+    </ul>
+  `
+  );
 });
 
 app.delete('/places/:id', (req, res) => {
@@ -33,7 +42,14 @@ app.delete('/places/:id', (req, res) => {
   );
   INTERESTING_LOCATIONS.splice(locationIndex, 1);
 
-  res.send();
+
+  const availableLocations = AVAILABLE_LOCATIONS.filter(loc => !INTERESTING_LOCATIONS.includes(loc));
+
+  res.send(`
+  <ul id="available-locations" class="locations" hx-swap-oob="true">
+    ${availableLocations.map((location) => renderLocation(location , true)).join('')}
+  </ul>
+  `);
 });
 
 app.listen(3000);
