@@ -1,4 +1,6 @@
 function showConfirmationModal(event){
+    if(event.detail.path === '/suggested-locations') return;
+
     event.preventDefault(); //stopping the event for the moment 
     const action = event.detail.elt.dataset.action; //data-action value 
     console.log(event)
