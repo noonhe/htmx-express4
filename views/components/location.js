@@ -5,7 +5,7 @@ export default function renderLocation(location, isAvailableLocation = true) {
       hx-post="/places" 
       hx-vals='{"locationId":"${location.id}"}'
       hx-target="#interesting-locations"
-      hx-swap="beforeend"
+      hx-swap="beforeend show:main:top"
     `
   }else{
     attributes = `
@@ -17,10 +17,7 @@ export default function renderLocation(location, isAvailableLocation = true) {
   }
   return `
     <li class="location-item">
-      <button 
-        ${attributes}
-        >
-
+      <button ${attributes}>
         <img src="${`/images/${location.image.src}`}" alt="${location.image.alt}" />
         <h3>${location.title}</h3>
       </button>
